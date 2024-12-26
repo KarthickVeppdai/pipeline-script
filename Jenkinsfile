@@ -29,10 +29,9 @@ environment
                 }
             }
             steps{
-                   readPom = readMavenPom file: 'pom.xml';
+                 
                   echo "Application is running with Jenkins Build Number #${env.BUILD_ID}"
-                  echo "Application Name: ${readPom.name}"
-                  echo "Application Version: ${readPom.version}"
+            
             }
         }
     }
