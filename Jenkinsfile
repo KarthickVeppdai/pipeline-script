@@ -26,13 +26,10 @@ environment
                 dir('springboot-app1') {
                 git branch: 'main', credentialsId: 'b3217732-06ce-407e-a974-a6af3f476792', url: 'https://github.com/KarthickVeppdai/traffic.git'
                 sh "mvn clean install"
+                      echo "Application is running with Jenkins Build Number #${env.BUILD_ID}"
                 }
             }
-            steps{
-                 
-                  echo "Application is running with Jenkins Build Number #${env.BUILD_ID}"
             
-            }
         }
     }
 }
