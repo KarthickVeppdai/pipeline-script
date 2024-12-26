@@ -8,8 +8,7 @@ pipeline {
 environment
 {
     PROJECT1_NAME = "springboot-app1"
-    REGISTRY = "docker.io"
-    DOCKER_HUB_CREDENTIALS = credentials('docker-hub')
+
 }
 
 
@@ -28,6 +27,7 @@ environment
                 git branch: 'main', credentialsId: 'b3217732-06ce-407e-a974-a6af3f476792', url: 'https://github.com/KarthickVeppdai/traffic.git'
                 sh "mvn clean install"
                 }
+            }
             steps{
                    readPom = readMavenPom file: 'pom.xml';
                   echo "Application is running with Jenkins Build Number #${env.BUILD_ID}"
