@@ -1,4 +1,5 @@
 def readPom
+def imageName
 
 pipeline {
     agent any
@@ -27,6 +28,9 @@ environment
                 git branch: 'main', credentialsId: 'b3217732-06ce-407e-a974-a6af3f476792', url: 'https://github.com/KarthickVeppdai/traffic.git'
                 sh "mvn clean install"
                       echo "Application is running with Jenkins Build Number #${env.BUILD_ID}"
+                    readPom = readMavenPom file: 'pom.xml';
+                     imageName = "${readPom.artifactId}:${env.AUTOMATIC_TAG}";
+                     echo "Application Version: ${imageName}"
                 }
             }
             
