@@ -41,7 +41,7 @@ environment
             }
             
         }
-    }
+    
 
         stage('Build Docker Image') {
             steps {
@@ -71,10 +71,15 @@ environment
                 }
             }
         }
+
+
+
+        
     }
 
 
 
+}
 
 
 
