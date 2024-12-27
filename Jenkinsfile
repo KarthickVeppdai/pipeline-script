@@ -9,6 +9,10 @@ pipeline {
 environment
 {
     PROJECT1_NAME = "springboot-app1"
+        DOCKER_REGISTRY = "docker.io"
+        DOCKER_IMAGE_NAME = "karthickveppdai/trafffic-app"
+        DOCKER_TAG = "latest"
+        DOCKER_CREDENTIALS = "b1a6887a-6a5c-4ea2-b65d-62326bc3a159"
 
 }
 
@@ -38,4 +42,44 @@ environment
             
         }
     }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // Build Docker image using the Dockerfile in the current directory
+                    docker.build("${DOCKER_IMAGE_NAME}:${DOCKER_TAG}")
+                }
+            }
+        }
+
+        stage('Login to Docker Registry') {
+            steps {
+                script {
+                    // Log in to Docker registry using stored Jenkins credentials
+                    withCredentials([usernamePassword(credentialsId: "${DOCKER_CREDENTIALS}", usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
+                    }
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    // Push the built image to Docker registry
+                    docker.push("${DOCKER_IMAGE_NAME}:${DOCKER_TAG}")
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+    
 }
