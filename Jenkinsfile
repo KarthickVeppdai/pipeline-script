@@ -10,7 +10,7 @@ environment
 {
     PROJECT1_NAME = "springboot-app1"
         DOCKER_REGISTRY = "docker.io"
-        DOCKER_IMAGE_NAME = "karthickveppdai/trafffic-app"
+        DOCKER_IMAGE_NAME = "trafffic-app"
         DOCKER_TAG = "latest"
         DOCKER_CREDENTIALS = "d7dc5cc4-7021-4e3d-9f0b-e000bae23e39"
 
