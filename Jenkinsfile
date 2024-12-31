@@ -66,10 +66,10 @@ environment
 
         stage('Push Docker Image') {
             steps {
-                script {
-                    // Push the built image to Docker registry
-                    docker.push("${DOCKER_IMAGE_NAME}:${DOCKER_TAG}")
-                }
+                
+                    
+                    sh "docker push ${DOCKER_IMAGE_NAME}:${DOCKER_TAG}"
+                
             }
         }
 
