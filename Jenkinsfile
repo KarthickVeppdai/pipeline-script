@@ -12,7 +12,7 @@ environment
         DOCKER_REGISTRY = "docker.io"
         DOCKER_IMAGE_NAME = "karthickveppdai/trafffic-app"
         DOCKER_TAG = "latest"
-        DOCKER_CREDENTIALS = "b1a6887a-6a5c-4ea2-b65d-62326bc3a159"
+        DOCKER_CREDENTIALS = "d7dc5cc4-7021-4e3d-9f0b-e000bae23e39"
 
 }
 
