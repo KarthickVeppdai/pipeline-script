@@ -1,26 +1,21 @@
 def readPom
 def imageName
+def tagName
+def userId = "karthickveppdai"
+def repository = "trafffic-app"
 
 pipeline {
     agent any
-    
-    
-
 environment
 {
-    PROJECT1_NAME = "springboot-app1"
+        PROJECT1_NAME = "springboot-app1"
         DOCKER_REGISTRY = "docker.io"
         DOCKER_IMAGE_NAME = "trafffic-app"
         DOCKER_TAG = "latest"
         DOCKER_CREDENTIALS = "d7dc5cc4-7021-4e3d-9f0b-e000bae23e39"
-
 }
 
-
-
-
-    tools {
-        // Install the Maven version configured as "M3" and add it to the path.
+    tools {      
         maven "Maven 3.6.3"
         dockerTool 'docker'
     }
@@ -34,8 +29,8 @@ environment
                 sh "mvn clean install"
                       echo "Application is running with Jenkins Build Number #${env.BUILD_ID}"
                      script {
-                    readPom = readMavenPom file: 'pom.xml';
-                     imageName = "${readPom.artifactId}:${env.AUTOMATIC_TAG}";
+                     readPom = readMavenPom file: 'pom.xml';
+                     imageName = "${env.REGISTRY}/${userId}/${repository}:${env.BUILD_ID}";
                      }
                      echo "Application Version: ${imageName}"
                 
@@ -48,7 +43,7 @@ environment
             steps {
                 script {
                     // Build Docker image using the Dockerfile in the current directory
-                    docker.build("${DOCKER_IMAGE_NAME}:${DOCKER_TAG}")
+                    docker.build("${repository}:${env.BUILD_ID}")
                 }
             }
         }
@@ -68,7 +63,7 @@ environment
             steps {
                 
                     
-                    sh "docker push ${DOCKER_IMAGE_NAME}:${DOCKER_TAG}"
+                    sh "docker push ${imageName}"
                 
             }
         }
