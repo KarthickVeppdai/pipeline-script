@@ -28,26 +28,25 @@ environment
                 dir('traffic') {
                 git branch: 'main', credentialsId: 'b3217732-06ce-407e-a974-a6af3f476792', url: 'https://github.com/KarthickVeppdai/traffic.git'
                 }
-            }  
-            steps {  
+            
+           
                 dir('traffic-dashboard') {
                 git branch: 'main', credentialsId: 'b3217732-06ce-407e-a974-a6af3f476792', url: 'https://github.com/KarthickVeppdai/trafficdashboard.git'
                 }
             }   
-        }
+        } //checkout
         stage('Build') {
             
             steps {
                  dir('traffic') {
                 sh "mvn clean install"  
                  }
-            } 
-             steps {
+            
                   dir('traffic-dashboard') {
                   sh "mvn clean install"     
                   }
             } 
-        }    
+        } //build   
         stage('Build Docker Image') {
             steps {
                 script {   
@@ -55,19 +54,14 @@ environment
                     docker.build("${repository}")
                     }
                 }
-            }
-            steps {
+          
                 script {   
                     dir('traffic-dashboard') {
                     docker.build("${repository1}")
                     }
                 }
-            }
-
-
-
-            
-        }
+            }  
+        }//build image
 
         stage('Login to Docker Registry') {
             steps {
