@@ -42,7 +42,7 @@ environment
             steps {
                 script {
                     // Build Docker image using the Dockerfile in the current directory
-                    docker.build("${repository}:${env.BUILD_ID}")
+                    docker.build("${repository})
                 }
             }
         }
@@ -61,8 +61,8 @@ environment
         stage('Push Docker Image') {
             steps {
                 
-                    sh "docker tag ${repository} ${repository}:${env.BUILD_ID}"
-                    sh "docker push ${repository}:${env.BUILD_ID}"
+                    sh "docker tag ${repository} ${repository}"
+                    sh "docker push ${repository}"
                 
             }
         }
