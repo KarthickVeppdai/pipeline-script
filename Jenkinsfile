@@ -29,8 +29,7 @@ environment
                 sh "mvn clean install"
                       echo "Application is running with Jenkins Build Number #${env.BUILD_ID}"
                      script {
-                     readPom = readMavenPom file: 'pom.xml';
-                     imageName = "${env.DOCKER_REGISTRY}/${userId}/${repository}:${env.BUILD_ID}";
+                     readPom = readMavenPom file: 'pom.xml';                   
                      }
                      echo "Application Version: ${imageName}"
                 
@@ -43,7 +42,7 @@ environment
             steps {
                 script {
                     // Build Docker image using the Dockerfile in the current directory
-                    docker.build("${userId}/${repository}:${env.BUILD_ID}")
+                    docker.build("${repository}:${env.BUILD_ID}")
                 }
             }
         }
@@ -62,8 +61,8 @@ environment
         stage('Push Docker Image') {
             steps {
                 
-                    sh "docker tag ${repository} ${userId}/${repository}:${env.BUILD_ID}"
-                    sh "docker push ${imageName}"
+                    sh "docker tag ${repository} ${repository}:${env.BUILD_ID}"
+                    sh "docker push ${repository}:${env.BUILD_ID}"
                 
             }
         }
