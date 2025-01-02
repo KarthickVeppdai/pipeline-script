@@ -30,7 +30,7 @@ environment
                       echo "Application is running with Jenkins Build Number #${env.BUILD_ID}"
                      script {
                      readPom = readMavenPom file: 'pom.xml';
-                     imageName = "${env.REGISTRY}/${userId}/${repository}:${env.BUILD_ID}";
+                     imageName = "${env.DOCKER_REGISTRY}/${userId}/${repository}:${env.BUILD_ID}";
                      }
                      echo "Application Version: ${imageName}"
                 
