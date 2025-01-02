@@ -60,9 +60,11 @@ environment
 
         stage('Push Docker Image') {
             steps {
+
                 
-                    sh "docker tag ${repository} ${repository}"
-                    sh "docker push ${repository}"
+                    sh "docker tag ${repository} ${userId}/${repository}:${env.BUILD_ID}"
+                
+                    sh "docker push ${userId}/${repository}:${env.BUILD_ID}"
                 
             }
         }
