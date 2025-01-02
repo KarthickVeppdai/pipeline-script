@@ -43,7 +43,7 @@ environment
             steps {
                 script {
                     // Build Docker image using the Dockerfile in the current directory
-                    docker.build("${repository}:${env.BUILD_ID}")
+                    docker.build("${userId}/${repository}:${env.BUILD_ID}")
                 }
             }
         }
