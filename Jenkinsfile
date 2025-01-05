@@ -1,4 +1,5 @@
 def readPom
+def readPomrepo
 def imageName
 def tagName
 def userId = "karthickveppdai"
@@ -39,10 +40,15 @@ environment
             
             steps {
                  dir('traffic') {
+                       readPom = readMavenPom file: 'pom.xml';
+                       repository=${readPom.artifactId}
                 sh "mvn clean install"  
                  }
             
                   dir('traffic-dashboard') {
+                       readPomrepo = readMavenPom file: 'pom.xml';
+                       repository1=${readPomrepo.artifactId}
+                      
                   sh "mvn clean install"     
                   }
             } 
@@ -75,7 +81,7 @@ environment
         
         stage('Push Docker Image') {
             steps {
-                    sh "docker tag ${repository} ${userId}/${repository}:${env.BUILD_ID}"
+                    sh "docker push ${userId}/${repository1}:${env.BUILD_ID}"
                     sh "docker push ${userId}/${repository}:${env.BUILD_ID}"  
                     sh 'docker logout'
             }
