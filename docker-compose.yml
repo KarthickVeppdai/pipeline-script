@@ -1,7 +1,7 @@
 version: '3.8'
 services:
-  springo:
-    image: traffic12
+  senderapp:
+    image: traffic
     container_name: traffic    
     ports:
       - "8092:8092"
@@ -9,8 +9,7 @@ services:
        - SPRING_RABBITMQ_HOST=rabbitmq 
     depends_on:
       - rabbitmq
-      - postgres
-  spring:
+  listnerapp:
     image: trafficdashboard
     container_name: trafficdashboard   
     ports:
@@ -19,20 +18,10 @@ services:
       - SPRING_RABBITMQ_HOST=rabbitmq 
     depends_on:
       - rabbitmq
-      - postgres
-      - springo      
+      - senderapp      
   rabbitmq:
     image: rabbitmq 
     container_name: rabbitmq
     ports:
       - "5672:5672"  
-      - "15672:15672"  
-  postgres:
-    image: postgres
-    container_name: postgres
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=sample
-    ports:
-      - "5432:5432"
+      - "15672:15672"
