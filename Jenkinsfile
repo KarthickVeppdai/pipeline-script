@@ -82,6 +82,8 @@ environment
                 }
             }
         }
+
+        
         
         stage('Push Docker Image') {
             steps {
@@ -90,6 +92,16 @@ environment
                     sh "docker tag ${repository} ${userId}/${repository}:${env.BUILD_ID}"
                     sh "docker push ${userId}/${repository}:${env.BUILD_ID}"
                     sh 'docker logout'
+            }
+        }
+        stage('Deployment') {
+            steps {
+                     echo "Deploying to kubernetes"
+            }
+        }
+        stage('Remove Images') {
+            steps {
+                     echo "removing images"
             }
         }
     }
