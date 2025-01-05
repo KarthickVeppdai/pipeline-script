@@ -85,8 +85,10 @@ environment
         
         stage('Push Docker Image') {
             steps {
-                    sh "docker push ${repository1}"
-                    sh "docker push ${repository}"  
+                    sh "docker tag ${repository1} ${userId}/${repository1}:${env.BUILD_ID}"
+                    sh "docker push ${userId}/${repository1}:${env.BUILD_ID}"
+                    sh "docker tag ${repository} ${userId}/${repository}:${env.BUILD_ID}"
+                    sh "docker push ${userId}/${repository}:${env.BUILD_ID}"
                     sh 'docker logout'
             }
         }
