@@ -96,7 +96,7 @@ environment
         }
         stage('Deployment') {
             steps {
-                     echo "Deploying to kubernetes"
+                     sh 'docker-compose up'
             }
         }
         stage('Remove Images') {
