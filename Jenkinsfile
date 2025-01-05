@@ -40,14 +40,18 @@ environment
             
             steps {
                  dir('traffic') {
+                      script {
                        readPom = readMavenPom file: 'pom.xml';
                        repository=${readPom.artifactId}
+                      }
                 sh "mvn clean install"  
                  }
             
                   dir('traffic-dashboard') {
+                       script {
                        readPomrepo = readMavenPom file: 'pom.xml';
                        repository1=${readPomrepo.artifactId}
+                       }
                       
                   sh "mvn clean install"     
                   }
