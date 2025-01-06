@@ -9,6 +9,7 @@ services:
        - SPRING_RABBITMQ_HOST=rabbitmq 
     depends_on:
       - rabbitmq
+      - postgres
   listnerapp:
     image: trafficdashboard
     container_name: trafficdashboard   
@@ -18,10 +19,20 @@ services:
       - SPRING_RABBITMQ_HOST=rabbitmq 
     depends_on:
       - rabbitmq
-      - senderapp      
+      - senderapp
+      - postgres      
   rabbitmq:
     image: rabbitmq 
     container_name: rabbitmq
     ports:
       - "5672:5672"  
       - "15672:15672"
+  postgres:
+    image: postgres
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=sample
+    ports:
+      - "5432:5432"
