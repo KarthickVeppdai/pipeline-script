@@ -65,6 +65,7 @@ environment
                   sh "docker rmi ${repository1}"
                   sh "docker rmi ${repository}"
             }
+        }
         
 
         
