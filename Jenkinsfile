@@ -108,8 +108,8 @@ environment
         }
         stage('Deployment') {
             steps {
-                     // sh 'docker-compose up'
-                     sh 'ls'
+                     // sh 'ls'
+                     sh 'docker -- compose up -d'
             }
         }
         stage('Remove Images') {
