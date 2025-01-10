@@ -62,8 +62,28 @@ environment
         
         stage('Remove old Images') {
             steps {
-                  sh "docker rmi ${repository1}"
-                  sh "docker rmi ${repository}"
+                script{
+if docker image inspect "${repository1}" > /dev/null 2>&1; then
+    echo "Image '${repository1}' found. Removing..."
+    docker rmi "${repository1}"
+else
+    echo "Image '${repository1}' not found. Nothing to do."
+fi
+     
+                }
+                script{
+if docker image inspect "${repository}" > /dev/null 2>&1; then
+    echo "Image '${repository}' found. Removing..."
+    docker rmi "${repository}"
+else
+    echo "Image '${repository}' not found. Nothing to do."
+fi
+                }
+
+
+                
+               //   sh "docker rmi ${repository1}"
+                //  sh "docker rmi ${repository}"
             }
         }
         
