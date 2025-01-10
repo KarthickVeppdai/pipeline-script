@@ -63,8 +63,8 @@ environment
         stage('Remove old Images') {
             steps {
                  echo "temp"
-                //  sh "docker rmi ${repository1}"
-                //  sh "docker rmi ${repository}"
+                 sh "docker rmi ${repository1}"
+                 sh "docker rmi ${repository}"
             }
         }
         
