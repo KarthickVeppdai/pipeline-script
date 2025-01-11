@@ -44,7 +44,7 @@ environment
                        readPom = readMavenPom file: 'pom.xml';
                        repository="${readPom.artifactId}"
                       }
-                sh "mvn clean install"  
+              //  sh "mvn clean install  
                  }
             
                   dir('traffic-dashboard') {
@@ -53,7 +53,7 @@ environment
                        repository1="${readPomrepo.artifactId}"
                        }
                       
-                  sh "mvn clean install"     
+             //     sh "mvn clean install"     
                   }
             } 
         } //build  
@@ -66,23 +66,19 @@ environment
                  sh "docker rmi ${repository1}"
                  sh "docker rmi ${repository}"
             }
+            
         }
         
 
         
         stage('Build Docker Image') {
-            steps {
-                script {   
+            steps {                  
                     dir('traffic') {
-                    docker.build("${repository}")
+                    sh "docker build --no-cache -t ${repository} ."
                     }
-                }
-          
-                script {   
                     dir('traffic-dashboard') {
-                    docker.build("${repository1}")
-                    }
-                }
+                    sh "docker build --no-cache -t ${repository1} ."
+                    }                
             }  
         }//build image
 
